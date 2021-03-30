@@ -32,7 +32,7 @@ describe('Employee Remover', () => {
       await handler.handle(activateEmployeeCommand);
 
       // Assert
-      expect(employeeRepository.findById).toBeCalled;
+      expect(employeeRepository.findById).toBeCalled();
       expect(employeeRepository.save).toBeCalled();
     });
   });
