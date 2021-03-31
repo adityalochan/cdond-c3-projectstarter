@@ -2,7 +2,7 @@ version: 2.1
 
 #https://circleci:com/developer/orbs/orb/circleci/slack:
 orbs:
-  slack: circleci/slack@4.3.3
+  slack: circleci/slack@4.2.0
 
 commands:
   destroy-environment:
@@ -17,7 +17,7 @@ commands:
 #            # Your code here
 #            exit 1
 
-  #https://knowledge.udacity.com/questions/447016
+#https://knowledge.udacity.com/questions/447016
       - slack/notify:
           custom: |
             {
