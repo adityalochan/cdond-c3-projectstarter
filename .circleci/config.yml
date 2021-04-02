@@ -1,8 +1,8 @@
 version: '2.1'
 
 #https://circleci:com/developer/orbs/orb/circleci/slack:
-orbs:
-  slack: circleci/slack@4.1
+#orbs:
+#  slack: circleci/slack@4.1
 
 #commands:
 #  destroy-environment:
@@ -86,31 +86,31 @@ jobs:
 
 
 #https://knowledge.udacity.com/questions/447788
-  notify:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-#      - ms-teams/report:
-#          only_on_fail: false
-#          webhook_url: $MS_TEAMS_WEBHOOK_URL
-      - slack/notify:
-          channel: '#circleciintegration'
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
+#  notify:
+#    docker:
+#      - image: 'cimg/base:stable'
+#    steps:
+##      - ms-teams/report:
+##          only_on_fail: false
+##          webhook_url: $MS_TEAMS_WEBHOOK_URL
+#      - slack/notify:
+#          channel: '#circleciintegration'
+#          custom: |
+#            {
+#              "blocks": [
+#                {
+#                  "type": "section",
+#                  "fields": [
+#                    {
+#                      "type": "plain_text",
+#                      "text": "*This is a text notification*",
+#                      "emoji": true
+#                    }
+#                  ]
+#                }
+#              ]
+#            }
+#          event: always
 
 
   test-frontend:
@@ -340,12 +340,12 @@ jobs:
 workflows:
   default:
     jobs:
-#      - build-frontend
+      - build-frontend
       - build-backend
-#      - test-frontend:
-#          requires: [ build-frontend ]
-#      - test-backend:
-#          requires: [ build-backend ]
+      - test-frontend:
+          requires: [ build-frontend ]
+      - test-backend:
+          requires: [ build-backend ]
 #      - scan-backend:
 #          requires: [ build-backend ]
 #      - scan-frontend:
@@ -369,6 +369,6 @@ workflows:
 #          requires: [ smoke-test ]
 #      - cleanup:
 #          requires: [ cloudfront-update ]
-  send-notification:
-    jobs:
-      - notify
+#  send-notification:
+#    jobs:
+#      - notify
