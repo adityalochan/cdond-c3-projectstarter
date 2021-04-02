@@ -1,15 +1,17 @@
-version: 2.1
+version: '2.1'
 
 #https://circleci:com/developer/orbs/orb/circleci/slack:
 orbs:
-  slack: circleci/slack@4.3.3
+#  slack: circleci/slack@4.3.3
+  slack: circleci/slack@4.1
+  ms-teams: cloudradar-monitoring/ms-teams@0.0.1
 
-commands:
-  destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    parameters:
-    # Add parameter here
-    steps:
+#commands:
+#  destroy-environment:
+#    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+#    parameters:
+#    # Add parameter here
+#    steps:
 #      - run:
 #          name: Destroy environments
 #          when: on_fail
@@ -18,23 +20,23 @@ commands:
 #            exit 1
 
 #https://knowledge.udacity.com/questions/447016
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
+#      - slack/notify:
+#          custom: |
+#            {
+#              "blocks": [
+#                {
+#                  "type": "section",
+#                  "fields": [
+#                    {
+#                      "type": "plain_text",
+#                      "text": "*This is a text notification*",
+#                      "emoji": true
+#                    }
+#                  ]
+#                }
+#              ]
+#            }
+#          event: always
 
 #  destroy-environment:
 #    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -102,6 +104,32 @@ jobs:
       - save_cache:
           paths: [ backend/node_modules ]
           key: backend-build
+
+  notify:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - ms-teams/report:
+          only_on_fail: false
+          webhook_url: $MS_TEAMS_WEBHOOK_URL
+      - slack/notify:
+          channel: '#project'
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "*This is a text notification*",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
 
   test-frontend:
     docker:
@@ -359,3 +387,6 @@ workflows:
 #          requires: [ smoke-test ]
 #      - cleanup:
 #          requires: [ cloudfront-update ]
+  send-notification:
+    jobs:
+      - notify
