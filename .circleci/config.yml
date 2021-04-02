@@ -2,7 +2,6 @@ version: '2.1'
 
 #https://circleci:com/developer/orbs/orb/circleci/slack:
 orbs:
-#  slack: circleci/slack@4.3.3
   slack: circleci/slack@4.1
 
 #commands:
@@ -17,25 +16,6 @@ orbs:
 #          command: |
 #            # Your code here
 #            exit 1
-
-#https://knowledge.udacity.com/questions/447016
-#      - slack/notify:
-#          custom: |
-#            {
-#              "blocks": [
-#                {
-#                  "type": "section",
-#                  "fields": [
-#                    {
-#                      "type": "plain_text",
-#                      "text": "*This is a text notification*",
-#                      "emoji": true
-#                    }
-#                  ]
-#                }
-#              ]
-#            }
-#          event: always
 
 #  destroy-environment:
 #    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -104,6 +84,8 @@ jobs:
           paths: [ backend/node_modules ]
           key: backend-build
 
+
+#https://knowledge.udacity.com/questions/447788
   notify:
     docker:
       - image: 'cimg/base:stable'
@@ -129,6 +111,7 @@ jobs:
               ]
             }
           event: always
+
 
   test-frontend:
     docker:
