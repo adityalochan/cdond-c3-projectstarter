@@ -2,7 +2,7 @@ version: 2.1
 
 #https://circleci:com/developer/orbs/orb/circleci/slack:
 orbs:
-  slack: circleci/slack@4.2.0
+  slack: circleci/slack@4.3.3
 
 commands:
   destroy-environment:
