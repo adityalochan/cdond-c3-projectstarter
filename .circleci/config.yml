@@ -110,7 +110,7 @@ jobs:
                 }
               ]
             }
-          event: fail
+          event: always
 
 
   test-frontend:
