@@ -112,7 +112,7 @@ jobs:
 #          only_on_fail: false
 #          webhook_url: $MS_TEAMS_WEBHOOK_URL
       - slack/notify:
-#          channel: '#project'
+          channel: '#circleciintegration'
           custom: |
             {
               "blocks": [
